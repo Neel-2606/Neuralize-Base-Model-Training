@@ -164,26 +164,89 @@ print("Saved model to 'food_delivery_model.pkl'")
 </br>
 
 
-## 🎨 Step 4: AI Studio Frontend Prompt
+## 🎨 Step 4: AI Studio Frontend Generation (On Your Laptop)
+Now we are going to build a completely custom Web App interface. 
 
-Once you have generated your `.pkl` files, we are going to build a customized Web App interface using Google AI Studio. 
+1. Create a new folder on your laptop's desktop and open it in **VS Code**.
+2. Go to **Google AI Studio** and paste the massive prompt provided by your instructor. *(Instructors: The prompt is too large for this README, please provide the PTCF prompt directly to the students via chat/discord)*. 
+3. **IMPORTANT:** Change the `[STUDENTS TYPE THEIR DESIRED STYLE HERE]` bracket in the prompt to your favorite aesthetic (e.g., "Cyberpunk", "Minimalist Apple", "Retro 80s Neon").
+4. AI Studio will generate three files. Save them inside your VS Code folder as:
+   *   `index.html`
+   *   `style.css`
+   *   `script.js`
 
-Copy the prompt below and paste it into AI Studio. **Make sure to change the `[YOUR STYLE HERE]` bracket at the end to your favorite aesthetic (e.g., Cyberpunk, Retro, Minimalist).**
+---
 
-```text
-Persona: You are an expert Full-Stack Web Developer with a strong eye for UI/UX design.
+</br>
+</br>
+</br>
+</br>
+</br>
 
-Task: Generate the complete frontend code for a Food Delivery Predictor web application. The frontend must collect user inputs via a form and display the prediction returned by my backend API.
 
-Context: I have a backend API running locally that accepts JSON POST requests at `http://localhost:5000/predict`. 
-The JSON payload format it expects is exactly: 
-{"Distance": 10, "Weather": "Rainy", "Traffic": "High", "OrderSize": "Medium", "Rating": 4.5, "PrepTime": 20, "PeakHour": "Yes", "DayOfWeek": "Friday", "OrderValue": 500}
-The API returns a JSON response: {"prediction": "Delayed"} or {"prediction": "On Time"}. 
+## 🔌 Step 5: Start the API Server in Colab
+Your frontend needs a backend API to talk to. We will run a Flask server inside Colab and use Localtunnel to expose it to the internet!
 
-Format: 
-Output exactly three distinct code blocks representing three files in the following strict folder structure. Do not use any external frameworks (no React, no Vue, no Tailwind). Use pure HTML, CSS, and vanilla JS.
+Create a new cell in your Colab notebook, paste the code below, and run it.
 
-1. index.html: Contains a form with logical UI elements (dropdowns for text categories, sliders/number inputs for numeric categories) for the 9 inputs listed above, and a submit button. Ensure all input elements have clear id attributes.
-2. script.js: Contains an async function that intercepts the form submission (e.preventDefault()), reads the values using the element IDs, builds the exact JSON payload expected, sends a POST request to http://localhost:5000/predict using the native Fetch API, and dynamically updates a results <div> on the page with the returned prediction text. Handle basic error states (like API being down).
-3. style.css: Apply a [STUDENTS TYPE THEIR DESIRED STYLE HERE, e.g., "Cyberpunk", "Minimalist Apple", "Retro 80s Neon"] aesthetic. Be highly creative with the CSS, utilizing modern hover effects, distinct color palettes, glassmorphism, and polished typography. The UI should look premium, responsive, and completely custom to this theme. Do not write generic CSS.
+```python
+!pip install flask flask-cors
+!npm install -g localtunnel
+
+import threading
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import pandas as pd
+import joblib
+
+# Load our saved models
+reg_model = joblib.load('student_hours_model.pkl')
+clf_model = joblib.load('food_delivery_model.pkl')
+
+app = Flask(__name__)
+CORS(app) # Enables frontend to talk to backend
+
+@app.route('/predict-study', methods=['POST'])
+def predict_study():
+    data = request.json
+    df = pd.DataFrame([data])
+    pred = reg_model.predict(df)[0]
+    return jsonify({"prediction": float(pred)})
+
+@app.route('/predict-delivery', methods=['POST'])
+def predict_delivery():
+    data = request.json
+    df = pd.DataFrame([data])
+    pred = clf_model.predict(df)[0]
+    return jsonify({"prediction": str(pred)})
+
+# Start Flask in the background
+def run_flask():
+    app.run(port=5000, debug=False, use_reloader=False)
+
+threading.Thread(target=run_flask).start()
+
+# Start Localtunnel to get a public URL
+print("\n--- YOUR LOCALTUNNEL URL WILL APPEAR BELOW ---\n")
+!lt --port 5000
 ```
+When you run this cell, it will print a URL that looks something like `https://funny-raccoon-99.loca.lt`. **Keep this cell running!**
+
+---
+
+</br>
+</br>
+</br>
+</br>
+</br>
+
+## 🚀 Step 6: Connect and Run!
+
+1. Copy the `loca.lt` URL generated in Colab.
+2. Go to your VS Code on your laptop and open `script.js`.
+3. Paste the URL into the `RAW_COLAB_URL` variable at the top of the file:
+   `const RAW_COLAB_URL = "https://funny-raccoon-99.loca.lt";`
+4. Save the file.
+5. Double-click your `index.html` file to open it in your web browser. 
+6. Type some inputs into your custom-styled frontend, hit predict, and watch it talk to your Colab ML models in real-time!
+
