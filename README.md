@@ -5,27 +5,22 @@
 
 ---
 
-## 📥 Step 1: Download the Datasets
-Before we write any code, you need to download the datasets to your local computer. Click the links below to download the raw CSV files (Right-click -> Save As...):
-
-*   👉 **[Download Regression Dataset (student_study_hours.csv)](https://raw.githubusercontent.com/Neel-2606/Neuralize-Base-Model-Training/main/student_study_hours.csv)**
-*   👉 **[Download Classification Dataset (food_delivery_status.csv)](https://raw.githubusercontent.com/Neel-2606/Neuralize-Base-Model-Training/main/food_delivery_status.csv)**
-
-*(Note: These links assume your CSV files are pushed to the main branch inside their respective folders. Adjust the URLs if you change the folder structure!)*
-
----
-
-## ☁️ Step 2: Google Colab Setup
-We will be running our Python code in Google Colab so you don't have to install anything on your laptop!
+## 📥 Step 1: Get the Datasets (Directly in Colab)
+Instead of downloading files manually to your computer, we can pull them directly from this GitHub repository straight into your Google Colab environment.
 
 1. Open **[Google Colab](https://colab.research.google.com/)** and click **New Notebook**.
-2. On the left sidebar of your Colab notebook, click the **Folder icon** 📁 (Files).
-3. Click the **Upload icon** 📤 and upload the two CSV files you just downloaded.
-4. Wait for the upload to finish. You should see both `student_study_hours.csv` and `food_delivery_status.csv` in the file list.
+2. Copy the code below, paste it into your first Colab cell, and press `Shift + Enter` to run it. 
+3. This will instantly download both datasets into your Colab environment!
 
----
+```bash
+!wget https://raw.githubusercontent.com/Neel-2606/Neuralize-Base-Model-Training/main/student_study_hours.csv
+!wget https://raw.githubusercontent.com/Neel-2606/Neuralize-Base-Model-Training/main/food_delivery_status.csv
+```
 
-## 📈 Step 3: Train the Regression Model (Predicting Study Hours)
+*(You can verify they downloaded by clicking the **Folder icon 📁** on the left menu in Colab).*
+
+
+## 📈 Step 2: Train the Regression Model (Predicting Study Hours)
 Copy the code below by hovering over it and clicking the **Copy icon** in the top right corner. Paste it into your first Colab cell and press `Shift + Enter` to run it!
 
 ```python
@@ -89,7 +84,7 @@ print("Saved model to 'student_hours_model.pkl'")
 
 ---
 
-## 🍕 Step 4: Train the Classification Model (Food Delivery)
+## 🍕 Step 3: Train the Classification Model (Food Delivery)
 Create a **New Code Cell** below the previous one. Copy, paste, and run this code to train the Classification model!
 
 ```python
@@ -148,7 +143,7 @@ print("Saved model to 'food_delivery_model.pkl'")
 
 ---
 
-## 🎨 Step 5: AI Studio Frontend Prompt
+## 🎨 Step 4: AI Studio Frontend Prompt
 
 Once you have generated your `.pkl` files, we are going to build a customized Web App interface using Google AI Studio. 
 
