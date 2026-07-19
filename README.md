@@ -19,6 +19,13 @@ Instead of downloading files manually to your computer, we can pull them directl
 
 *(You can verify they downloaded by clicking the **Folder icon 📁** on the left menu in Colab).*
 
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
 
 ## 📈 Step 2: Train the Regression Model (Predicting Study Hours)
 Copy the code below by hovering over it and clicking the **Copy icon** in the top right corner. Paste it into your first Colab cell and press `Shift + Enter` to run it!
@@ -84,6 +91,13 @@ print("Saved model to 'student_hours_model.pkl'")
 
 ---
 
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
 ## 🍕 Step 3: Train the Classification Model (Food Delivery)
 Create a **New Code Cell** below the previous one. Copy, paste, and run this code to train the Classification model!
 
@@ -142,6 +156,13 @@ print("Saved model to 'food_delivery_model.pkl'")
 *   **Confusion Matrix:** Shows exactly where the model got confused (e.g., predicting "Delayed" when it was actually "On Time").
 
 ---
+
+</br>
+</br>
+</br>
+</br>
+</br>
+
 
 ## 🎨 Step 4: AI Studio Frontend Prompt
 
