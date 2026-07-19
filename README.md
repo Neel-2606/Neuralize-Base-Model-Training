@@ -8,8 +8,8 @@
 ## 📥 Step 1: Download the Datasets
 Before we write any code, you need to download the datasets to your local computer. Click the links below to download the raw CSV files (Right-click -> Save As...):
 
-*   👉 **[Download Regression Dataset (student_study_hours.csv)](https://raw.githubusercontent.com/Neel-2606/Neuralize-Base-Model-Training/main/Regression/student_study_hours.csv)**
-*   👉 **[Download Classification Dataset (food_delivery_status.csv)](https://raw.githubusercontent.com/Neel-2606/Neuralize-Base-Model-Training/main/Classification/food_delivery_status.csv)**
+*   👉 **[Download Regression Dataset (student_study_hours.csv)](https://raw.githubusercontent.com/Neel-2606/Neuralize-Base-Model-Training/main/student_study_hours.csv)**
+*   👉 **[Download Classification Dataset (food_delivery_status.csv)](https://raw.githubusercontent.com/Neel-2606/Neuralize-Base-Model-Training/main/food_delivery_status.csv)**
 
 *(Note: These links assume your CSV files are pushed to the main branch inside their respective folders. Adjust the URLs if you change the folder structure!)*
 
