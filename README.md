@@ -302,7 +302,7 @@ If COLAB_URL is still the placeholder → show placeholder message, return early
 Set button to loading state (preserving width/height), call updateApiStatus("connecting"), and render a skeleton placeholder into the result container (see Part 5.8).
 try { const data = await makeApiRequest(...); ...render success... } catch (error) { ...map error to message per table above... } finally { ...remove spinner, re-enable button... }
 Delivery success → check data.prediction === "On Time" or "Delayed" explicitly; anything else → schema mismatch message.
-Study success → coerce Number(data.prediction); if isNaN → schema mismatch message; else format .toFixed(1) and render "Additional Study Required: X.X Hours/Week".
+Study success → coerce Number(data.prediction); if isNaN → schema mismatch message; else format .toFixed(1) and render "Additional Study Required: X.X Hours/Whole Reading vacation".
 
 4.7 State Management Discipline
 No shared mutable state between the two forms — each handler manages its own button/spinner/result container independently.
