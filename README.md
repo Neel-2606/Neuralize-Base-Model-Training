@@ -35,19 +35,21 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, r2_score
 
-# 1. Load Data
+print("--- Training Regression Model (Student Study Hours) ---")
+
+# 1. Load Data from Colab
 df = pd.read_csv('student_study_hours.csv')
 
-# 2. Split Features and Target
+# 2. Split Features (X) and Target (y)
 X = df.drop('Additional_Study_Hours_Required', axis=1)
 y = df['Additional_Study_Hours_Required']
 
-# 3. Train-Test Split
+# 3. Train-Test Split (80% Train, 20% Test)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # 4. Create Preprocessing Pipeline
-numeric_features = ['Current_CGPA', 'Attendance_Percentage', 'Weekly_Self_Study_Hours', 
-                    'Coding_Practice_Hours_Per_Week', 'Previous_Semester_SPI', 
+numeric_features = ['Current_CGPA', 'Attendance_Percentage', 'Weekly_Self_Study_Hours',
+                    'Coding_Practice_Hours_Per_Week', 'Previous_Semester_SPI',
                     'Internal_Assessment_Marks', 'Practical_Assignment_Submission']
 categorical_features = ['Target_Grade']
 
@@ -57,20 +59,25 @@ preprocessor = ColumnTransformer(
         ('cat', OneHotEncoder(drop='first'), categorical_features)
     ])
 
-model = Pipeline(steps=[('preprocessor', preprocessor), ('regressor', LinearRegression())])
+model = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('regressor', LinearRegression())
+])
 
 # 5. Train the Model
 model.fit(X_train, y_train)
 
 # 6. Evaluate
 y_pred = model.predict(X_test)
-print(f"Regression MAE: {mean_absolute_error(y_test, y_pred):.2f} hours")
-print(f"Regression R2 Score: {r2_score(y_test, y_pred):.4f}")
+mae = mean_absolute_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"Mean Absolute Error (MAE): {mae:.2f} hours")
+print(f"R2 Score: {r2:.4f}")
 
 # 7. Save the Model
 joblib.dump(model, 'student_hours_model.pkl')
-print("✅ Saved model to 'student_hours_model.pkl'")
-```
+print("Saved model to 'student_hours_model.pkl'")
 
 <br><br><br><br><br>
 
@@ -81,20 +88,22 @@ Create a new cell in Colab, paste this code, and run it. This trains our deliver
 
 ```python
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-# 1. Load Data
-df = pd.read_csv('food_delivery_status.csv') 
+print("--- Training Classification Model (Food Delivery Status) ---")
 
-# 2. Split Features and Target
+# 1. Load Data from Colab
+df = pd.read_csv('food_delivery_status.csv')
+
+# 2. Split Features (X) and Target (y)
 X = df.drop('Delivery_Status', axis=1)
 y = df['Delivery_Status']
 
-# 3. Train-Test Split
+# 3. Train-Test Split (80% Train, 20% Test)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
 # 4. Create Preprocessing Pipeline
-numeric_features = ['Delivery_Distance_km', 'Delivery_Partner_Rating', 
+numeric_features = ['Delivery_Distance_km', 'Delivery_Partner_Rating',
                     'Restaurant_Preparation_Time_min', 'Order_Value_INR']
 categorical_features = ['Weather_Condition', 'Traffic_Level', 'Order_Size', 'Peak_Hour', 'Day_of_Week']
 
@@ -104,23 +113,32 @@ preprocessor = ColumnTransformer(
         ('cat', OneHotEncoder(drop='first'), categorical_features)
     ])
 
-model = Pipeline(steps=[('preprocessor', preprocessor), ('classifier', LogisticRegression(max_iter=1000))])
+model = Pipeline(steps=[
+    ('preprocessor', preprocessor),
+    ('classifier', LogisticRegression(max_iter=1000))
+])
 
 # 5. Train the Model
 model.fit(X_train, y_train)
 
 # 6. Evaluate
 y_pred = model.predict(X_test)
-print(f"Classification Accuracy: {accuracy_score(y_test, y_pred) * 100:.2f}%")
+accuracy = accuracy_score(y_test, y_pred)
+
+print(f"Accuracy: {accuracy * 100:.2f}%")
+print("Confusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
 
 # 7. Save the Model
 joblib.dump(model, 'food_delivery_model.pkl')
-print("✅ Saved model to 'food_delivery_model.pkl'")
-```
+print("Saved model to 'food_delivery_model.pkl'")
+---
 
 <br><br><br><br><br>
 
----
+
 
 ## 🎨 Step 4: AI Studio Frontend Generation (On Your Laptop)
 Now we are going to build a completely custom Web App interface. 
