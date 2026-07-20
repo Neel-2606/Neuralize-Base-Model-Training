@@ -77,7 +77,8 @@ print(f"R2 Score: {r2:.4f}")
 
 # 7. Save the Model
 joblib.dump(model, 'student_hours_model.pkl')
-print("Saved model to 'student_hours_model.pkl'")
+print("✅ Saved model to 'student_hours_model.pkl'")
+```
 
 <br><br><br><br><br>
 
@@ -133,12 +134,12 @@ print(classification_report(y_test, y_pred))
 
 # 7. Save the Model
 joblib.dump(model, 'food_delivery_model.pkl')
-print("Saved model to 'food_delivery_model.pkl'")
----
+print("✅ Saved model to 'food_delivery_model.pkl'")
+```
 
 <br><br><br><br><br>
 
-
+---
 
 ## 🎨 Step 4: AI Studio Frontend Generation (On Your Laptop)
 Now we are going to build a completely custom Web App interface. 
@@ -320,7 +321,7 @@ If COLAB_URL is still the placeholder → show placeholder message, return early
 Set button to loading state (preserving width/height), call updateApiStatus("connecting"), and render a skeleton placeholder into the result container (see Part 5.8).
 try { const data = await makeApiRequest(...); ...render success... } catch (error) { ...map error to message per table above... } finally { ...remove spinner, re-enable button... }
 Delivery success → check data.prediction === "On Time" or "Delayed" explicitly; anything else → schema mismatch message.
-Study success → coerce Number(data.prediction); if isNaN → schema mismatch message; else format .toFixed(1) and render "Additional Study Required: X.X Hours/Whole Reading vacation".
+Study success → coerce Number(data.prediction); if isNaN → schema mismatch message; else format .toFixed(1) and render "Additional Study Required: X.X Hours".
 
 4.7 State Management Discipline
 No shared mutable state between the two forms — each handler manages its own button/spinner/result container independently.
